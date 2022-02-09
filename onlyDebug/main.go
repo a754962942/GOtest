@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // func PointerParam(ip *int) {
 // 	fmt.Printf("指针为函数参数的内存地址是：%p\n", &ip)
@@ -26,22 +29,39 @@ import "fmt"
 
 //非递归思路
 //使用闭包返回一个返回值为int的func
-func fib2() func() int {
-	a, b := 0, 1
-	return func() int {
-		temp := a
-		a, b = b, a+b
-		return temp
-	}
+// func fib2() func() int {
+// 	a, b := 0, 1
+// 	return func() int {
+// 		temp := a
+// 		a, b = b, a+b
+// 		return temp
+// 	}
+// }
+
+//Ticker
+func lanch() {
+	fmt.Println("Lanch")
 }
 func main() {
-	//利用闭包思路解决斐波那契数列
-	f := fib2()
-	s := make([]int, 0, 10)
-	for i := 0; i < 20; i++ {
-		s = append(s, f())
+	t := time.NewTicker(time.Second)
+	num := 5
+	for {
+		<-t.C
+		fmt.Println(num)
+		num--
+		if num == 0 {
+			break
+		}
 	}
-	fmt.Println(s)
+	t.Stop()
+	lanch()
+	// //利用闭包思路解决斐波那契数列
+	// f := fib2()
+	// s := make([]int, 0, 10)
+	// for i := 0; i < 20; i++ {
+	// 	s = append(s, f())
+	// }
+	// fmt.Println(s)
 	//利用递归思路计算斐波那契数列
 	// 	s := make([]int, 0)
 	// 	for i := 0; i < 20; i++ {
